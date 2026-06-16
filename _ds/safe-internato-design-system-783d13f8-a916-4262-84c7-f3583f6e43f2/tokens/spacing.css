@@ -1,0 +1,53 @@
+/* ============================================================
+   Safe Internato — Spacing, radii, shadows, motion
+   ============================================================ */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4  */
+  --space-2:  0.5rem;   /* 8  */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  2.5rem;   /* 40 */
+  --space-8:  3rem;     /* 48 */
+  --space-9:  4rem;     /* 64 */
+  --space-10: 5rem;     /* 80 */
+
+  /* Radii — brandbook: rounded cards 12–18px */
+  --radius-xs:   6px;
+  --radius-sm:   10px;
+  --radius-md:   14px;   /* default card */
+  --radius-lg:   18px;   /* large card */
+  --radius-xl:   24px;
+  --radius-pill: 999px;  /* buttons, chips, medallions */
+
+  /* Shadows — soft, warm, low-contrast (cards have a "leve sombra") */
+  --shadow-xs: 0 1px 2px rgba(90, 16, 18, 0.06);
+  --shadow-sm: 0 2px 6px rgba(90, 16, 18, 0.08);
+  --shadow-md: 0 6px 18px rgba(90, 16, 18, 0.10);
+  --shadow-lg: 0 16px 40px rgba(66, 11, 13, 0.16);
+  --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  /* Border widths */
+  --bw-hair: 1px;
+  --bw:      1.5px;
+  --bw-ring: 2px;   /* rosé medallion rings */
+
+  /* Focus */
+  --focus-width: 3px;
+  --focus-color: rgba(177, 23, 34, 0.35);
+
+  /* Motion — calm, confident; brief eases, no bounce */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.45, 0, 0.2, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur:        200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+
+  /* Brand gradient (image protection / hero base) */
+  --grad-bordo: linear-gradient(180deg, rgba(90,16,18,0) 0%, rgba(90,16,18,0.85) 70%, rgba(66,11,13,0.96) 100%); /* @kind color */
+  --grad-brand: linear-gradient(135deg, #8C0F14 0%, #5A1012 100%); /* @kind color */
+}

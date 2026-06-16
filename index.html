@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Internato na Prática — Lives semanais com o Prof. Breno</title>
+
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/fonts.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/colors.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/typography.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/spacing.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/base.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/styles.css" />
+
+<style>
+  :root { --sym: url("assets/book-white.svg"); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bordo-900); font-family: var(--font-text); color: var(--text-body);
+    -webkit-font-smoothing: antialiased; }
+  svg.lucide { stroke-width: 2; }
+
+  /* one-fold stage — never scrolls */
+  .stage { position: fixed; inset: 0; height: 100dvh; width: 100%; display: grid;
+    place-items: center; overflow: hidden; padding: clamp(12px, 3vw, 28px); }
+
+  .card { position: relative; z-index: 1; width: 100%; max-width: 540px; max-height: calc(100dvh - 24px);
+    background: var(--surface-card); border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px rgba(28,5,6,.55); display: flex; flex-direction: column;
+    padding: clamp(20px, 4.2vw, 34px); }
+
+  /* ---- Brand backdrop — built from the Safe Internato symbol ---- */
+  .bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+  .bg-grad { position: absolute; inset: 0;
+    background: radial-gradient(135% 110% at 50% 24%, #7a181c 0%, var(--bordo-deep) 47%, var(--bordo-900) 100%); }
+  .bg-glow { position: absolute; inset: 0; opacity: var(--glow, .26); mix-blend-mode: screen;
+    background: radial-gradient(70% 56% at 50% 33%, var(--vermelho) 0%, transparent 62%); }
+  .bg-vignette { position: absolute; inset: 0;
+    background: radial-gradient(125% 100% at 50% 42%, transparent 58%, rgba(28,5,6,.42) 100%); }
+
+  .mark { position: absolute; pointer-events: none; }
+  /* corner book watermark — fixed on desktop, scaled down on small screens */
+  .mark-br { width: 760px; height: 760px; right: -200px; bottom: -230px; opacity: .12; transform: rotate(-8deg); }
+  .mark-tl { width: 290px; height: 290px; left: -90px; top: -78px; opacity: .07; transform: rotate(12deg); }
+  @media (max-width: 600px) {
+    .mark-br { width: 360px; height: 360px; right: -118px; bottom: -126px; }
+    .mark-tl { width: 168px; height: 168px; left: -54px; top: -48px; }
+  }
+  .bg-trama { position: absolute; inset: -60px;
+    background-image: var(--sym); background-size: 138px 138px; background-repeat: repeat;
+    opacity: .05; }
+
+  .q-top { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-bottom: clamp(12px, 2.4vw, 18px); }
+  .q-count { font-size: var(--fs-sm); font-weight: 700; color: var(--bordo); }
+  .q-bar { height: 6px; border-radius: 999px; background: var(--pergaminho-2); overflow: hidden;
+    margin-bottom: clamp(14px, 3vw, 24px); }
+  .q-bar > i { display: block; height: 100%; background: var(--bordo); border-radius: 999px;
+    transition: width .3s var(--ease-out); }
+  .q-title { font-family: var(--font-display); font-weight: 800; color: var(--text-strong);
+    font-size: clamp(19px, 4.6vw, 24px); line-height: 1.16; margin: 0 0 clamp(14px, 2.6vw, 20px); }
+
+  .q-opts { display: grid; gap: clamp(8px, 1.6vw, 11px); }
+  .opt { display: flex; align-items: center; gap: 13px; width: 100%; text-align: left;
+    cursor: pointer; border-radius: var(--radius-md); font-family: var(--font-text);
+    font-weight: 600; font-size: clamp(14px, 3.4vw, 17px); color: var(--text-strong);
+    background: var(--surface-card); border: 1.5px solid var(--border);
+    padding: clamp(11px, 2.4vw, 15px) clamp(12px, 2.6vw, 16px);
+    transition: all .15s var(--ease-out); }
+  .opt:hover { border-color: var(--rose); background: var(--rose-300); transform: translateY(-1px); }
+  .opt[aria-pressed="true"] { border-color: var(--bordo); background: var(--rose-300); color: var(--bordo); }
+  .opt .ic { flex: none; width: 36px; height: 36px; border-radius: 999px; display: grid;
+    place-items: center; background: var(--rose-300); color: var(--bordo); }
+  .opt[aria-pressed="true"] .ic { background: var(--bordo); color: var(--pergaminho); }
+  .opt .lbl { flex: 1; }
+  .opt .chk { flex: none; width: 22px; height: 22px; border-radius: 999px; border: 2px solid var(--ink-300);
+    display: grid; place-items: center; color: transparent; transition: all .15s var(--ease-out); }
+  .opt[aria-pressed="true"] .chk { background: var(--bordo); border-color: var(--bordo); color: var(--pergaminho); }
+
+  .q-foot { display: flex; align-items: center; justify-content: space-between;
+    margin-top: clamp(14px, 2.6vw, 20px); }
+  .lnk { background: none; border: none; cursor: pointer; font-family: var(--font-text);
+    font-weight: 600; font-size: var(--fs-sm); display: inline-flex; align-items: center; gap: 6px;
+    color: var(--text-muted); padding: 0; }
+  .lnk:disabled { color: var(--text-faint); cursor: default; }
+  .micro { font-size: var(--fs-caption); color: var(--text-faint); display: inline-flex;
+    align-items: center; gap: 6px; }
+
+  .brand { display: inline-flex; align-items: center; gap: 9px; }
+  .brand .wm { font-family: var(--font-display); font-weight: 900; font-size: 16px;
+    color: var(--text-strong); letter-spacing: .01em; }
+  .brand .wm small { font-weight: 600; font-size: 9px; letter-spacing: var(--ls-wordmark);
+    color: var(--text-muted); }
+
+  @keyframes stepIn { from { opacity: 0; transform: translateX(14px); }
+    to { opacity: 1; transform: none; } }
+  .step { animation: stepIn .28s var(--ease-out); }
+  @media (prefers-reduced-motion: reduce) { .step { animation: none; } }
+
+  .done-wrap { text-align: center; padding: clamp(8px, 2vw, 16px) 0; }
+
+  /* keep everything in one fold on short viewports (laptops / landscape) */
+  @media (max-height: 700px) {
+    .card { padding: 20px 22px; }
+    .q-top { margin-bottom: 10px; }
+    .q-bar { margin-bottom: 14px; }
+    .q-title { font-size: clamp(18px, 4vw, 21px); margin-bottom: 13px; }
+    .q-opts { gap: 8px; }
+    .opt { padding: 10px 13px; font-size: 15px; }
+    .opt .ic { width: 32px; height: 32px; }
+    .q-foot { margin-top: 13px; }
+  }
+  @media (max-height: 560px) {
+    .card { padding: 14px 18px; }
+    .q-top { margin-bottom: 7px; }
+    .q-bar { margin-bottom: 10px; height: 5px; }
+    .q-title { font-size: 17px; margin-bottom: 9px; line-height: 1.12; }
+    .q-opts { gap: 6px; }
+    .opt { padding: 8px 11px; font-size: 14px; gap: 10px; }
+    .opt .ic { width: 28px; height: 28px; }
+    .q-foot { margin-top: 9px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<template id="__bundler_thumbnail" data-bg-color="#5A1012">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#5A1012"/>
+    <g fill="none" stroke="#EAC9CB" stroke-width="14" stroke-linecap="round" opacity="0.9">
+      <path d="M600 300 q70 40 70 120 q0 -80 70 -120"/>
+      <path d="M600 300 q-70 40 -70 120 q0 -80 -70 -120"/>
+      <path d="M600 300 q40 -70 120 -70 q-80 0 -120 -70"/>
+      <path d="M600 300 q-40 -70 -120 -70 q80 0 120 -70"/>
+    </g>
+    <text x="600" y="540" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="76" fill="#FBF7F2" letter-spacing="2">SAFE</text>
+    <text x="600" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-weight="600" font-size="26" fill="#EAC9CB" letter-spacing="14">INTERNATO</text>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/_ds_bundle.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+const { MedalIcon } = window.SafeInternatoDesignSystem_783d13;
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakSlider } = window;
+const Ic = (n, s) => <i data-lucide={n} style={s}></i>;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "fundo": "S\u00edmbolo",
+  "brilho": 0.26
+}/*EDITMODE-END*/;
+
+// Brand backdrop — open-book silhouette watermark.
+const SYM = "assets/book-white.svg";
+function Backdrop({ fundo, brilho }) {
+  return (
+    <div className="bg" style={{ "--glow": brilho }}>
+      <div className="bg-grad" />
+      <div className="bg-glow" />
+      {fundo === "S\u00edmbolo" && <>
+        <img className="mark mark-br" src={SYM} alt="" />
+        <img className="mark mark-tl" src={SYM} alt="" />
+      </>}
+      {fundo === "Emblema" &&
+        <img className="mark" src={SYM} alt="" style={{ width: "min(640px, 94vmin)", height: "min(640px, 94vmin)", left: "50%", top: "46%", transform: "translate(-50%,-50%)", opacity: .1 }} />
+      }
+      {fundo === "Trama" && <span className="bg-trama" />}
+      <div className="bg-vignette" />
+    </div>
+  );
+}
+
+// Destino após o quiz (página com vídeo + ebook). fit=1 perfil-alvo, fit=0 fora do perfil.
+const NEXT_PAGE = "evento.html";
+
+const QUESTIONS = [
+  { id: "momento", q: "Em qual momento da formação você está?", options: [
+    { v: "iniciais", label: "Anos iniciais (1º–4º)", icon: "book-open", fit: true },
+    { v: "interno", label: "Interno — 5º ou 6º ano", icon: "stethoscope", fit: true },
+    { v: "recem", label: "Recém-formado(a)", icon: "graduation-cap", fit: true },
+    { v: "outro", label: "Especialista / outra área", icon: "user", fit: false },
+  ] },
+  { id: "desafio", q: "O que mais te desafia na rotina clínica hoje?", options: [
+    { v: "conduta", label: "Definir condutas à beira do leito", icon: "heart-pulse", fit: true },
+    { v: "plantao", label: "Ter segurança no plantão", icon: "activity", fit: true },
+    { v: "residencia", label: "Me preparar para a residência", icon: "target", fit: true },
+  ] },
+  { id: "terca", q: "Você costuma ter um tempo livre nas terças à noite?", options: [
+    { v: "sempre", label: "Quase sempre — terça é meu dia", icon: "calendar-check", fit: true },
+    { v: "asvezes", label: "Às vezes dá certo", icon: "clock", fit: true },
+    { v: "raro", label: "Raramente, mas reveria a gravação", icon: "history", fit: true },
+  ] },
+  { id: "interesse", q: "Quer participar das lives gratuitas, toda terça, com o Prof. Breno?", options: [
+    { v: "sim", label: "Sim, quero garantir meu acesso", icon: "check-circle-2", fit: true },
+    { v: "talvez", label: "Talvez, se couber na agenda", icon: "calendar-clock", fit: true },
+    { v: "nao", label: "Não tenho interesse agora", icon: "x-circle", fit: false },
+  ] },
+];
+
+function isQualified(a) {
+  const m = QUESTIONS[0].options.find((o) => o.v === a.momento);
+  const i = QUESTIONS[3].options.find((o) => o.v === a.interesse);
+  return !!(m && m.fit && i && i.fit);
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [step, setStep] = React.useState(0);
+  const [answers, setAnswers] = React.useState({});
+  const [done, setDone] = React.useState(false);
+  const total = QUESTIONS.length;
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+
+  const panel = (
+    <TweaksPanel>
+      <TweakSection label="Fundo" />
+      <TweakRadio label="Estilo" value={t.fundo}
+        options={["S\u00edmbolo", "Emblema", "Trama", "Liso"]}
+        onChange={(v) => setTweak("fundo", v)} />
+      <TweakSlider label="Brilho" value={t.brilho} min={0} max={0.5} step={0.02}
+        onChange={(v) => setTweak("brilho", v)} />
+    </TweaksPanel>
+  );
+
+  function pick(qid, v, last) {
+    setAnswers((a) => {
+      const next = { ...a, [qid]: v };
+      if (last) {
+        setDone(true);
+        const fit = isQualified(next) ? 1 : 0;
+        setTimeout(() => { window.location.href = `${NEXT_PAGE}?fit=${fit}`; }, 950);
+      } else {
+        setTimeout(() => setStep((s) => s + 1), 360);
+      }
+      return next;
+    });
+  }
+
+  if (done) {
+    return (
+      <>
+      <div className="stage">
+        <Backdrop fundo={t.fundo} brilho={t.brilho} />
+        <div className="card step">
+          <div className="done-wrap">
+            <MedalIcon tone="brand" size={66} style={{ margin: "0 auto 16px" }}>
+              {Ic("check", { width: 30, height: 30 })}</MedalIcon>
+            <h2 className="q-title" style={{ textAlign: "center", margin: "0 0 8px" }}>
+              Tudo certo!</h2>
+            <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "var(--fs-body)" }}>
+              Estamos preparando seu acesso às lives…</p>
+            <div className="q-bar" style={{ marginTop: 20 }}><i style={{ width: "100%" }} /></div>
+          </div>
+        </div>
+      </div>
+      {panel}
+      </>
+    );
+  }
+
+  const q = QUESTIONS[step];
+  const pct = Math.round((step / total) * 100);
+
+  return (
+    <>
+    <div className="stage">
+      <Backdrop fundo={t.fundo} brilho={t.brilho} />
+      <div className="card">
+        <div className="q-top">
+          <span className="brand">
+            <img src="assets/logo-symbol-bordo.svg" alt="Safe Internato" width={26} height={26} style={{ display: "block" }} />
+            <span className="wm">SAFE <small>INTERNATO</small></span>
+          </span>
+          <span className="q-count">{step + 1} / {total}</span>
+        </div>
+        <div className="q-bar"><i style={{ width: `${pct}%` }} /></div>
+
+        <div className="step" key={step}>
+          <h2 className="q-title">{q.q}</h2>
+          <div className="q-opts">
+            {q.options.map((o) => (
+              <button key={o.v} className="opt" aria-pressed={answers[q.id] === o.v}
+                onClick={() => pick(q.id, o.v, step === total - 1)}>
+                <span className="ic">{Ic(o.icon, { width: 18, height: 18 })}</span>
+                <span className="lbl">{o.label}</span>
+                <span className="chk"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline></svg></span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="q-foot">
+          <button className="lnk" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>
+            {Ic("arrow-left", { width: 15, height: 15 })} Voltar</button>
+          <span className="micro">{Ic("lock", { width: 13, height: 13 })} Leva 30 segundos</span>
+        </div>
+      </div>
+    </div>
+    {panel}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 120);
+</script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Internato na Prática — Lives semanais com o Prof. Breno</title>
+
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/fonts.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/colors.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/typography.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/spacing.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/tokens/base.css" />
+<link rel="stylesheet" href="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/styles.css" />
+
+<style>
+  :root { --wa: #1F7A4D; --wa-hover: #258a57; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--surface-page); font-family: var(--font-text); color: var(--text-body);
+    -webkit-font-smoothing: antialiased; }
+  svg.lucide { stroke-width: 2; }
+  a { color: inherit; }
+
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+
+  .topbar { background: var(--grafite); color: var(--pergaminho); border-bottom: 1px solid var(--grafite-600); }
+  .topbar .inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+
+  .hero { background: var(--grad-brand); color: var(--pergaminho); position: relative; overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.04fr .96fr; gap: 54px; align-items: center;
+    padding: 64px 40px 70px; }
+
+  .video { position: relative; width: min(300px, 80vw); aspect-ratio: 9 / 16; border-radius: 26px;
+    overflow: hidden; background: var(--grafite-800);
+    box-shadow: 0 30px 70px rgba(0,0,0,.42), 0 0 0 1px rgba(234,201,203,.18); margin: 0 auto; }
+
+  .ebook { background: var(--surface-card); color: var(--text-body); border-top: 1px solid var(--border); }
+  .ebook-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 54px; align-items: center;
+    padding: 76px 40px; }
+
+  .steps { display: flex; gap: 12px; flex-wrap: wrap; }
+  .step-pill { display: flex; align-items: center; gap: 10px; background: rgba(251,247,242,.10);
+    border: 1px solid rgba(234,201,203,.30); border-radius: var(--radius-pill); padding: 7px 15px 7px 7px; }
+  .step-pill .n { width: 26px; height: 26px; border-radius: 999px; background: var(--pergaminho);
+    color: var(--bordo); font-family: var(--font-display); font-weight: 900; font-size: 13px;
+    display: grid; place-items: center; flex: none; }
+  .step-pill b { font-size: var(--fs-sm); font-weight: 600; color: var(--pergaminho); }
+
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.08); opacity: 1; } }
+  .play-ring { animation: pulse 2.6s var(--ease-in-out) infinite; }
+  @media (prefers-reduced-motion: reduce) { .play-ring { animation: none; } }
+
+  @media (max-width: 880px) {
+    .container { padding: 0 22px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 30px; padding: 40px 22px 48px; text-align: center; }
+    .hero-grid p { margin-inline: auto; }
+    .hero-cta { justify-content: center; width: 100%; }
+    .hero-cta a, .ebook-cta a { width: 100%; max-width: 440px; }
+    .hero-meta { flex-wrap: wrap; justify-content: center; row-gap: 8px; }
+    .steps { justify-content: center; }
+    .ebook-grid { grid-template-columns: 1fr; gap: 30px; padding: 44px 22px; text-align: center; }
+    .ebook-grid p { margin-inline: auto; }
+    .ebook-grid ul { text-align: left; max-width: 420px; margin-inline: auto; }
+    .ebook-cta { justify-content: center; width: 100%; }
+    footer .container { justify-content: center; text-align: center; row-gap: 8px; }
+  }
+  @media (max-width: 460px) {
+    .container { padding: 0 20px; }
+    .hero-grid { gap: 24px; padding: 30px 20px 38px; }
+    .ebook-grid { padding: 38px 20px; }
+  }
+</style>
+</head>
+<body class="si-body">
+<div id="root"></div>
+
+<template id="__bundler_thumbnail" data-bg-color="#5A1012">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#5A1012"/>
+    <g fill="none" stroke="#EAC9CB" stroke-width="14" stroke-linecap="round" opacity="0.9">
+      <path d="M600 300 q70 40 70 120 q0 -80 70 -120"/>
+      <path d="M600 300 q-70 40 -70 120 q0 -80 -70 -120"/>
+      <path d="M600 300 q40 -70 120 -70 q-80 0 -120 -70"/>
+      <path d="M600 300 q-40 -70 -120 -70 q80 0 120 -70"/>
+    </g>
+    <text x="600" y="540" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="76" fill="#FBF7F2" letter-spacing="2">SAFE</text>
+    <text x="600" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-weight="600" font-size="26" fill="#EAC9CB" letter-spacing="14">INTERNATO</text>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="_ds/safe-internato-design-system-783d13f8-a916-4262-84c7-f3583f6e43f2/_ds_bundle.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+const { Button, Card, Badge, MedalIcon } = window.SafeInternatoDesignSystem_783d13;
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio } = window;
+const Ik = (n, s) => <i data-lucide={n} style={s}></i>;
+
+// Marca oficial (SVG anexado) + wordmark — substitui a reconstrução do design system.
+function BrandLogo({ size = 26, tone = "white" }) {
+  const src = tone === "white" ? "assets/logo-symbol.svg" : "assets/logo-symbol-bordo.svg";
+  const col = tone === "white" ? "var(--pergaminho)" : "var(--bordo)";
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: size * 0.42 }}>
+      <img src={src} alt="Safe Internato" width={size} height={size} style={{ display: "block" }} />
+      <span style={{ display: "flex", flexDirection: "column", lineHeight: 0.96 }}>
+        <span style={{ fontFamily: "var(--font-display)", fontWeight: "var(--fw-black)",
+          fontSize: size * 0.62, letterSpacing: "0.01em", color: col }}>SAFE</span>
+        <span style={{ fontFamily: "var(--font-text)", fontWeight: "var(--fw-semibold)",
+          fontSize: size * 0.20, letterSpacing: "var(--ls-wordmark)", textIndent: "0.34em",
+          color: col, marginTop: size * 0.06 }}>INTERNATO</span>
+      </span>
+    </span>
+  );
+}
+
+// Placeholder — troque pelo seu número/link e mensagem.
+const WA_NUMBER = "5500000000000";
+const WA_MSG = "Olá! Fiz o quiz e quero garantir meu acesso às lives de terça com o Prof. Breno 👋";
+const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MSG)}`;
+
+const params = new URLSearchParams(location.search);
+const FIT = params.get("fit") !== "0"; // default tratado como perfil-alvo
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "ctaStyle": "verde",
+  "heroVariant": "gradiente"
+}/*EDITMODE-END*/;
+
+function WhatsAppCTA({ ctaStyle, label, size }) {
+  const [hover, setHover] = React.useState(false);
+  const green = ctaStyle !== "bordô";
+  const base = green ? "var(--wa)" : "var(--bordo)";
+  const hov = green ? "var(--wa-hover)" : "var(--vermelho)";
+  const pad = size === "lg" ? "16px 30px" : "13px 24px";
+  return (
+    <a href={WA_LINK} target="_blank" rel="noopener noreferrer"
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+      style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 11,
+        textDecoration: "none", background: hover ? hov : base, color: "var(--pergaminho)",
+        fontFamily: "var(--font-text)", fontWeight: 700, fontSize: "var(--fs-body-lg)",
+        padding: pad, borderRadius: "var(--radius-pill)", boxShadow: "var(--shadow-md)",
+        transition: "background .16s var(--ease-out)" }}>
+      <img src="assets/whatsapp.svg" alt="" width={20} height={20} style={{ display: "block" }} />{label}
+    </a>
+  );
+}
+
+function VideoPlaceholder() {
+  const vref = React.useRef(null);
+  const [playing, setPlaying] = React.useState(false);
+  const [ar, setAr] = React.useState(9 / 16);
+
+  function start() {
+    setPlaying(true);
+    const v = vref.current;
+    if (v) { try { v.play(); } catch (e) {} }
+  }
+  function onMeta() {
+    const v = vref.current;
+    if (v && v.videoWidth && v.videoHeight) setAr(v.videoWidth / v.videoHeight);
+  }
+  const landscape = ar >= 1.05;
+  const wrapStyle = landscape
+    ? { width: "min(460px, 92vw)", aspectRatio: String(ar) }
+    : { width: "min(300px, 80vw)", aspectRatio: String(ar) };
+
+  return (
+    <div className="video" style={wrapStyle}>
+      <video ref={vref} src="assets/intro.mp4" onLoadedMetadata={onMeta}
+        poster="assets/intro-cover-v2.png"
+        controls={playing} playsInline preload="none"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
+          objectFit: "cover", background: "#0C0F14", display: "block" }} />
+      {!playing && (
+        <img src="assets/intro-cover-v2.png" alt="" aria-hidden="true"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", display: "block" }} />
+      )}
+      {!playing && (
+        <button onClick={start} aria-label="Reproduzir vídeo de apresentação"
+          style={{ position: "absolute", inset: 0, border: "none", padding: 0, margin: 0,
+            cursor: "pointer", background: "transparent", display: "block" }}>
+          <span style={{ position: "absolute", inset: 0, background:
+            "linear-gradient(180deg, rgba(12,15,20,.28) 0%, rgba(12,15,20,.04) 36%, rgba(90,16,18,.58) 100%)" }} />
+          <span style={{ position: "absolute", top: 16, left: 0, right: 0, display: "flex",
+            alignItems: "center", justifyContent: "center", gap: 8 }}>
+            <img src="assets/logo-symbol.svg" alt="" width={20} height={20} style={{ display: "block" }} />
+            <span style={{ color: "var(--pergaminho)", fontFamily: "var(--font-display)", fontWeight: 900,
+              fontSize: 12, letterSpacing: ".02em" }}>SAFE</span>
+          </span>
+          <span style={{ position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%,-50%)" }}>
+            <span className="play-ring" style={{ width: 74, height: 74, borderRadius: 999,
+              background: "rgba(251,247,242,.16)", display: "grid", placeItems: "center",
+              border: "1.5px solid rgba(251,247,242,.55)" }}>
+              <span style={{ width: 54, height: 54, borderRadius: 999, background: "var(--pergaminho)",
+                display: "grid", placeItems: "center", color: "var(--bordo)" }}>
+                <span style={{ display: "grid", placeItems: "center", marginLeft: 3 }}>
+                  {Ik("play", { width: 24, height: 24, fill: "var(--bordo)" })}</span></span>
+            </span>
+          </span>
+          <span style={{ position: "absolute", left: 18, right: 18, bottom: 18, textAlign: "center" }}>
+            <span style={{ display: "block", color: "var(--pergaminho)", fontFamily: "var(--font-display)",
+              fontWeight: 800, fontSize: 17, lineHeight: 1.18 }}>Conheça a série de lives</span>
+            <span style={{ display: "block", color: "var(--rose)", fontSize: 12.5, marginTop: 5 }}>com o Prof. Breno</span>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+function EbookCover() {
+  return (
+    <div style={{ position: "relative", width: "min(250px, 68vw)", margin: "0 auto" }}>
+      <div style={{ aspectRatio: "3 / 4", borderRadius: 14, overflow: "hidden",
+        background: "linear-gradient(150deg, #8C0F14 0%, #5A1012 55%, #420B0D 100%)",
+        boxShadow: "0 26px 60px rgba(66,11,13,.5)", position: "relative", transform: "rotate(-3deg)",
+        border: "1px solid rgba(234,201,203,.25)" }}>
+        <img src="assets/book-white.svg" alt="" aria-hidden="true" style={{ position: "absolute",
+          width: 200, height: 200, right: -64, bottom: -56, opacity: .12, transform: "rotate(-8deg)",
+          pointerEvents: "none" }} />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 12, background: "rgba(0,0,0,.22)" }} />
+        <div style={{ position: "relative", padding: "24px 22px", height: "100%", display: "flex",
+          flexDirection: "column" }}>
+          <img src="assets/logo-symbol.svg" alt="" width={28} height={28} style={{ display: "block" }} />
+          <span style={{ marginTop: "auto", color: "var(--rose)", fontSize: 11, fontWeight: 600,
+            letterSpacing: "var(--ls-label)", textTransform: "uppercase" }}>Material de apoio</span>
+          <div style={{ color: "var(--pergaminho)", fontFamily: "var(--font-display)", fontWeight: 900,
+            fontSize: 23, lineHeight: 1.05, margin: "8px 0 6px", letterSpacing: "var(--ls-display)" }}>
+            Internato na Prática</div>
+          <div style={{ color: "var(--rose)", fontSize: 12, lineHeight: 1.4 }}>
+            O guia que acompanha cada live</div>
+          <span className="si-ecg" style={{ color: "var(--rose)", height: 14, marginTop: 14, opacity: .8 }}></span>
+        </div>
+      </div>
+      <Badge tone="brand" variant="solid" style={{ position: "absolute", top: -12, right: 6,
+        transform: "rotate(4deg)", boxShadow: "var(--shadow-md)" }}>Grátis</Badge>
+    </div>
+  );
+}
+
+const BULLETS = [
+  "Condutas à beira do leito, organizadas passo a passo",
+  "Os erros mais comuns do plantão — e como evitá-los",
+  "Resumos práticos para revisar antes do próximo plantão",
+  "Espaço para anotar o que você aprende em cada live",
+];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+  const heroBg = t.heroVariant === "grafite"
+    ? "radial-gradient(120% 120% at 80% 0%, #181C23 0%, #0C0F14 60%)" : "var(--grad-brand)";
+
+  return (
+    <React.Fragment>
+      <div className="topbar">
+        <div className="container inner">
+          <BrandLogo size={26} tone="white" />
+          <span style={{ fontSize: "var(--fs-sm)", color: "var(--rose)", fontWeight: 500,
+            display: "inline-flex", alignItems: "center", gap: 7 }}>
+            {Ik("calendar-days", { width: 16, height: 16 })} Toda terça · ao vivo</span>
+        </div>
+      </div>
+
+      <section className="hero" style={{ background: heroBg }}>
+        <img src="assets/book-white.svg" alt="" aria-hidden="true" style={{ position: "absolute",
+          width: 560, height: 560, right: -150, bottom: -190, opacity: .07, transform: "rotate(-8deg)",
+          pointerEvents: "none", zIndex: 0 }} />
+        <img src="assets/book-white.svg" alt="" aria-hidden="true" style={{ position: "absolute",
+          width: 220, height: 220, left: -70, top: -64, opacity: .05, transform: "rotate(12deg)",
+          pointerEvents: "none", zIndex: 0 }} />
+        <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ maxWidth: 520 }}>
+            <Badge tone={FIT ? "success" : "rose"} variant={FIT ? "solid" : "soft"} style={{ marginBottom: 20 }}>
+              {FIT ? "Obrigado!" : "Que bom ter você aqui"}</Badge>
+            <h1 className="h1" style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(30px, 8.4vw, 52px)",
+              lineHeight: 1.04, letterSpacing: "var(--ls-display)", margin: "0 0 16px" }}>
+              {FIT ? "Seu acesso às lives está garantido!" : "Que bom ter você por aqui!"}</h1>
+            <p style={{ fontSize: "var(--fs-body-lg)", lineHeight: 1.6, color: "var(--rose)",
+              margin: "0 0 26px", maxWidth: 460 }}>
+              Toda terça-feira, ao vivo e de graça, o <strong style={{ color: "var(--pergaminho)" }}>Prof. Breno</strong> descomplica
+              situações reais da rotina clínica — teoria, prática e experiência num só lugar. Assista à apresentação e entre
+              no grupo do WhatsApp para receber os horários e o ebook de apoio, grátis.</p>
+            <div className="hero-cta" style={{ display: "flex", flexWrap: "wrap", gap: 14, marginBottom: 22 }}>
+              <WhatsAppCTA ctaStyle={t.ctaStyle} label="Entrar no grupo das lives" size="lg" />
+            </div>
+            <div className="hero-meta" style={{ display: "flex", alignItems: "center", gap: 18,
+              color: "var(--rose)", fontSize: "var(--fs-sm)", fontWeight: 500 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
+                {Ik("gift", { width: 16, height: 16 })} Ebook de apoio grátis</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
+                {Ik("video", { width: 16, height: 16 })} Toda terça, ao vivo</span>
+            </div>
+          </div>
+          <div><VideoPlaceholder /></div>
+        </div>
+      </section>
+
+      <section className="ebook">
+        <div className="container ebook-grid">
+          <div><EbookCover /></div>
+          <div>
+            <span className="si-overline">Material de apoio gratuito</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: "clamp(26px, 6.2vw, 36px)",
+              letterSpacing: "var(--ls-display)", margin: "10px 0 14px", lineHeight: 1.06,
+              color: "var(--text-strong)" }}>
+              Ebook “Internato na Prática”, grátis para você.</h2>
+            <p style={{ color: "var(--text-body)", fontSize: "var(--fs-body-lg)", lineHeight: 1.6,
+              margin: "0 0 26px", maxWidth: 480 }}>
+              O material que acompanha cada live: para <strong style={{ color: "var(--text-strong)" }}>revisar
+              antes do plantão</strong>, fixar o que o Prof. Breno ensina e consultar na hora da dúvida.
+              O conhecimento sério da faculdade, com a praticidade de quem entende a rotina.</p>
+            <ul style={{ listStyle: "none", padding: "22px 24px", margin: "0 0 30px", display: "grid",
+              gap: 16, background: "var(--surface-sunken)", borderRadius: "var(--radius-lg)",
+              border: "1px solid var(--border)" }}>
+              {BULLETS.map((b) => (
+                <li key={b} style={{ display: "flex", gap: 14, alignItems: "center",
+                  fontSize: "var(--fs-body)", lineHeight: 1.45, color: "var(--text-strong)",
+                  fontWeight: 500 }}>
+                  <span style={{ flex: "none", width: 30, height: 30, borderRadius: 999,
+                    background: "var(--rose-300)", color: "var(--bordo)", display: "grid",
+                    placeItems: "center", boxShadow: "0 0 0 1.5px var(--rose)" }}>
+                    {Ik("check", { width: 17, height: 17 })}</span>
+                  <span>{b}</span></li>
+              ))}
+            </ul>
+            <div className="ebook-cta" style={{ display: "flex" }}>
+              <WhatsAppCTA ctaStyle={t.ctaStyle} label="Quero o ebook agora" size="lg" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer style={{ background: "var(--grafite)", color: "var(--pergaminho)" }}>
+        <div className="container" style={{ padding: "32px 40px", display: "flex", alignItems: "center",
+          justifyContent: "space-between", flexWrap: "wrap", gap: 14 }}>
+          <BrandLogo size={22} tone="white" />
+          <span style={{ fontSize: "var(--fs-caption)", color: "var(--ink-300)" }}>
+            medsafebrasil.com.br/education · Educação médica de alta performance</span>
+        </div>
+      </footer>
+
+      <TweaksPanel>
+        <TweakSection label="Botão do WhatsApp" />
+        <TweakRadio label="Cor do CTA" value={t.ctaStyle} options={["verde", "bordô"]}
+          onChange={(v) => setTweak("ctaStyle", v)} />
+        <TweakSection label="Topo da página" />
+        <TweakRadio label="Fundo do hero" value={t.heroVariant} options={["gradiente", "grafite"]}
+          onChange={(v) => setTweak("heroVariant", v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+setTimeout(() => window.lucide && window.lucide.createIcons(), 120);
+</script>
+</body>
+</html>

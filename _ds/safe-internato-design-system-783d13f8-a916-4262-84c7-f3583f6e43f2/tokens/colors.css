@@ -1,0 +1,75 @@
+/* ============================================================
+   Safe Internato — Color tokens
+   Base bordô + vermelho identity; pergaminho/rosé give breathing
+   room; grafite anchors dark surfaces.
+   Proportion of use: ~60% bordô · 18% vermelho · 12% claro · 6%
+   rosé · 4% grafite.
+   ============================================================ */
+
+:root {
+  /* ---- Brand scale: bordô / vermelho ---- */
+  --bordo-deep:   #5A1012;   /* Bordô Profundo — primary surface */
+  --bordo:        #8C0F14;   /* Vermelho Safe — primary brand */
+  --vermelho:     #B11722;   /* Vermelho Vivo — accent / highlight */
+  --vermelho-700: #6E0C11;   /* pressed / deepened vermelho */
+  --bordo-900:    #420B0D;   /* deepest bordô, gradient base */
+
+  /* ---- Neutrals: grafite / pergaminho ---- */
+  --grafite:      #0C0F14;   /* near-black ink, dark surfaces */
+  --grafite-800:  #181C23;   /* raised dark surface */
+  --grafite-600:  #2C313B;   /* hairlines on dark */
+  --ink-700:      #3A3033;   /* warm body text on light */
+  --ink-500:      #6B5E60;   /* secondary text on light */
+  --ink-300:      #A99D9E;   /* muted / placeholder */
+
+  /* ---- Soft / light ---- */
+  --pergaminho:   #FBF7F2;   /* parchment — card & page background */
+  --pergaminho-2: #F3EBE3;   /* slightly deeper parchment */
+  --rose:         #EAC9CB;   /* Rosé Suave — rings, lines, hairlines */
+  --rose-300:     #F4E2E3;   /* faint rosé tint fills */
+  --white:        #FFFFFF;
+
+  /* ---- Semantic: status ---- */
+  --success:      #1F7A4D;
+  --success-soft: #E2F0E8;
+  --warning:      #B4710A;
+  --warning-soft: #F7ECD8;
+  --danger:       #B11722;   /* shares vermelho vivo */
+  --danger-soft:  #F7DEDF;
+  --info:         #2C5E8A;
+  --info-soft:    #E0EAF2;
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page:      var(--pergaminho);
+  --surface-card:      var(--white);
+  --surface-sunken:    var(--pergaminho-2);
+  --surface-brand:     var(--bordo);
+  --surface-brand-deep:var(--bordo-deep);
+  --surface-dark:      var(--grafite);
+  --surface-dark-2:    var(--grafite-800);
+
+  /* Text */
+  --text-strong:   var(--grafite);
+  --text-body:     var(--ink-700);
+  --text-muted:    var(--ink-500);
+  --text-faint:    var(--ink-300);
+  --text-on-brand: var(--pergaminho);
+  --text-on-dark:  var(--pergaminho);
+  --text-brand:    var(--bordo);
+
+  /* Lines & borders */
+  --border:        #E7DCD3;     /* hairline on light */
+  --border-strong: #D8C8BD;
+  --border-rose:   var(--rose); /* medallion rings, decorative */
+  --border-dark:   var(--grafite-600);
+
+  /* Interactive */
+  --action:          var(--bordo);
+  --action-hover:    var(--vermelho);
+  --action-pressed:  var(--vermelho-700);
+  --focus-ring:      var(--vermelho);
+}
