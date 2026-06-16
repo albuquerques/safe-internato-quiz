@@ -3,21 +3,15 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/assets/(.*\\.mp4)",
+      "source": "/_ds/:path*",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "source": "/_ds/(.*)",
+      "source": "/assets/:path*",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/assets/(.*\\.(svg|png|webp))",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
     }
   ]
