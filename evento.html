@@ -118,10 +118,8 @@ function BrandLogo({ size = 26, tone = "white" }) {
   );
 }
 
-// Placeholder — troque pelo seu número/link e mensagem.
-const WA_NUMBER = "5500000000000";
-const WA_MSG = "Olá! Fiz o quiz e quero garantir meu acesso às lives de terça do Safe Internato 👋";
-const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MSG)}`;
+// Link do grupo de WhatsApp das lives de terça do Safe Internato.
+const WA_LINK = "https://chat.whatsapp.com/DlQ3NPZNViADSkQKmMzDlS?s=cl&p=i&mlu=1";
 
 const params = new URLSearchParams(location.search);
 const FIT = params.get("fit") !== "0"; // default tratado como perfil-alvo
@@ -158,7 +156,7 @@ function VideoPlaceholder() {
   function start() {
     setPlaying(true);
     const v = vref.current;
-    if (v) { try { v.play(); } catch (e) {} }
+    if (v) { try { v.currentTime = 0; v.play(); } catch (e) {} }
   }
   function onMeta() {
     const v = vref.current;
@@ -171,16 +169,10 @@ function VideoPlaceholder() {
 
   return (
     <div className="video" style={wrapStyle}>
-      <video ref={vref} src="assets/intro.mp4" onLoadedMetadata={onMeta}
-        poster="assets/intro-cover-v2.png"
-        controls={playing} playsInline preload="none"
+      <video ref={vref} src="assets/intro.mp4#t=2" onLoadedMetadata={onMeta}
+        controls={playing} playsInline preload="metadata"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
           objectFit: "cover", background: "#0C0F14", display: "block" }} />
-      {!playing && (
-        <img src="assets/intro-cover-v2.png" alt="" aria-hidden="true"
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", display: "block" }} />
-      )}
       {!playing && (
         <button onClick={start} aria-label="Reproduzir vídeo de apresentação"
           style={{ position: "absolute", inset: 0, border: "none", padding: 0, margin: 0,
